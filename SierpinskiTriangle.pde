@@ -1,14 +1,14 @@
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 //triangle stack
-ArrayDeque<Triangle> triangles;
+ArrayList<Triangle> triangles;
 
 Triangle curr;
 Triangle next;
 public void setup()
 {
   size(500,500);
-  triangles = new ArrayDeque<Triangle>();
+  triangles = new ArrayList<Triangle>();
   int col = color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
   Triangle first = new Triangle(0,500,500, col);
   triangles.add(first);
@@ -17,7 +17,8 @@ public void setup()
 public void draw()
 {
   if(!triangles.isEmpty()){
-    curr = triangles.pop();
+    curr = triangles.get(0);
+    curr = triangles.remove(0);
     curr.drawTriangle();
     if(curr.getLen() >10){
       int col = color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
