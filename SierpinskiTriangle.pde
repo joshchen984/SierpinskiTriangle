@@ -9,7 +9,8 @@ public void setup()
 {
   size(500,500);
   triangles = new ArrayDeque<Triangle>();
-  Triangle first = new Triangle(0,500,500);
+  int col = color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
+  Triangle first = new Triangle(0,500,500, col);
   triangles.add(first);
 }
 //using bfs to draw triangles so triangles get drawn one at a time
@@ -19,9 +20,10 @@ public void draw()
     curr = triangles.pop();
     curr.drawTriangle();
     if(curr.getLen() >10){
-      triangles.add(new Triangle(curr.getX(),curr.getY(),curr.getLen()/2));
-      triangles.add(new Triangle(curr.getX() + curr.getLen()/2,curr.getY(),curr.getLen()/2));
-      triangles.add(new Triangle(curr.getX() + curr.getLen()/4,(int)(curr.getY()-(float)((Math.sqrt(3)*(curr.getLen()/4)))) ,curr.getLen()/2));
+      int col = color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
+      triangles.add(new Triangle(curr.getX(),curr.getY(),curr.getLen()/2,col));
+      triangles.add(new Triangle(curr.getX() + curr.getLen()/2,curr.getY(),curr.getLen()/2,col));
+      triangles.add(new Triangle(curr.getX() + curr.getLen()/4,(int)(curr.getY()-(float)((Math.sqrt(3)*(curr.getLen()/4)))) ,curr.getLen()/2, col));
 
     }
     
@@ -52,13 +54,16 @@ public void drawTriangle(int x, int y, int len){
 
 class Triangle{
   private int x, y, len;
-  Triangle(int xx, int yy,int l){
+  private int col;
+  Triangle(int xx, int yy,int l, int c){
     x = xx;
     y = yy;
     len = l;
+    col = c;
   }
   
   void drawTriangle(){
+    fill(col);
     triangle(x,y,x+len,y,x+(len/2), y-(float)((Math.sqrt(3)*(len/2))));
   }
   
